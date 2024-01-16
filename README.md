@@ -85,7 +85,11 @@ resolves: #1137
 |버전|설명|
 |----------|----------|
 |java1.0-1.1|'Thread'클래스와 'Runnable' 인터페이스를 사용하여 스레드를 생성하고 제어|
-|java1.2-java1.4|
+|java1.2-1.4| java.util.concurrent 패키지가 소개되어 스레드 풀 및 다양한 동시성 유틸리티를 제공|
+|java5-6|java.util.concurrent 패키지의 중요한 기능들과 java.util.concurrent 패키지의 Executor 인터페이스가 소개|
+|java7| ForkJoinPool이라는 새로운 프레임워크|
+|java8|람다 표현식이 도입|
+|java9-14|람다 표현식이 도입, 스트림 api가 추가되어 병렬 처리를 보다 편리하게 할 수 있음|
 
 #### Concurrent
 java.util.concurrent 패키지는 다중 스레드 프로그래밍을 지원하는 일련의 클래스 및 인터페이스를 제공<br>
