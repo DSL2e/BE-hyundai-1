@@ -157,7 +157,80 @@ latch.await();
 ~~~
 
 ## STEP2
-1. GET
+해당 과정을 처리하면서, request 핸들링할 때 HTTP URL을 통해 자원을 명시하고, HTTP Method를 통해 자원에 대한 CRUD 기능을 적용하므로 관련 공부가 필요하다고 느낌
+### 메서드에 따른 헤더
+ + GET    : STEP1에서 정리한 내용과 같음
+ + POST   : get에서 content-type과 content-length가 추가되고 바디에 json형식으로 데이터를 받아옴
+ + PUT    : Post와 같고 변경 데이터를 바디에 받음
+ + DELETE : get과 같고 데이터를 바이데 넣지 않고, URL에 포함하여 전달
 
+
+### REST, Rest API, RESTful
+
+1. REST
++ 정의 : 클라이언트와 서버 사이의 통신 방법으로 웹의 잠정을 최대한 활용하는 아키텍처로 자원의 상태와 자원의 표현에 의한 전달
++ 구체적인 개념 : HTTP URL를 통해 자원을 명시하고 HTTP Method를 통해 해당 자원에 대한 CRUD 기능을 적용함<br>
+
+|METHOD|설명|CRUD|
+|---|--------|-----------|
+|GET|자원을 받아오기만 함|Read|
+|POST|새로운 자원을 추가|Create|
+|PUT|존재하는 자원을 변경|Update|
+|DELETE|자원을 삭제|Delete|
+|PATCH|한 자원의 데이터를 부분적으로 변경|Update|
+
+2. REST API
+ +  REST 기반으로 서비스 API를 구현한 것
+ +  설계 기본 규칙도 존재
+
+3. RESTful
+ + REST라는 아키텍쳐를 구현하는 웹 서비슬 나타내기 위해 사용 => REST API를 제공하는 웹사이트는 'RESTful'
+
+### JUnit
+ + 정의 : Java용 유닛 테스트 프레임워크로 프로그램을 작은 Unit 단위로 쪼개서 각각 잘 동작하는지 검사하므로서 안정성을 높힘
+1. Given/when/then 패턴
+ + given : 테스트에서 구체화하고자 하는 행동을 하기 전 테스트의 상태를 설명하는 부분
+ + when  : 구체화하고자 하는 행동
+ + then  : 예상되는 변화를 확인, 검증
+~~~
+    @Test
+    void method1() {
+        //given ( 멤버 생성 )이 주어졌을 때
+        Member member = new Member(1L,"memberA",Grade.VIP);
+        //when  ( 멤버를 회원가입 시킨 뒤, 멤버를 조회) 했을 때
+        memberService.join(member);
+        Member findMember = memberService.findMember(1L);
+        //then   ( 아래 조건을 만족해야 한다. )
+        Assertions.assertThat(member).isEqualTo(findMember);
+    }
+~~~
+   
+3. F.I.R.S.T : 좋은 테스트를 작성하는 5가지 속성
+   
+   |F.I.R.S.T|설명|
+   |---------|---|
+   |Fast|테스트는 빠르게 수행되어야함|
+   |Isolated|하나의 테스트코드는 하나의 대상에 대해서만 수행|
+   |Reqeatable|테스트는 어떤 환경에서도 반복 가능하도록 작성|
+   |Self-validating|테스트 자체만으로 검증이 완료|
+   |Timely|테스트하려는 애플리케이션 코드가 구현하기 전에 완성|
+
+4. Assertions 클래스
+~~~
+import org.assertj.core.api.Assertions;
+// isEqualTo 메서드 : obj1과 obj2가 같으면 테스트 통과
+Assertions.assertThat(findMember).isEqualTo(savedMember);
+// contains : list에 ob1,2가 포함되면 통과
+Assertions.assertThat(List list).contains("hello","world");
+// containsExactly : s1,s2,s3가 모두 존재해야 통과
+assertThat(String[] arr).containsExactly(str1, str2, str3);
+// assertThatThrownBy : 로직 실행시 IllegalStateException오류가 발생 시 통과
+assertThatThrownBy( () -> logic()).isInstanceOf(IllegalStateException.class);
+~~~
+
+5. Annotations
+ + @Test : 해당 메서드가 단위 테스트임을 명시
+ + @DisplayName("...") : 테스트 이름을 지정
+ + @BeforeEach/AferEach : 끝날 때마다 동작하는 메서드
 ## STEP3
 2. 다양한 컨텐츠 타입
